@@ -29,15 +29,15 @@ def browser_management():
     password = os.getenv('SELENOID_PASSWORD')
 
     selenoid_capabilities = {
-        "browserName": browser.config.driver_name,
-        "browserVersion": browser.config.version,
-        "selenoid:options": {
-            "enableVNC": True,
-            "enableVideo": True
+        'browserName': browser.config.driver_name,
+        'browserVersion': browser.config.version,
+        'selenoid:options': {
+            'enableVNC': True,
+            'enableVideo': True
         }
     }
     driver_options.capabilities.update(selenoid_capabilities)
-    browser.config.driver = webdriver.Remote(command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub", options=driver_options)
+    browser.config.driver = webdriver.Remote(command_executor=f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub', options=driver_options)
 
     yield
 
@@ -52,40 +52,40 @@ def obtain_user_token(browser_management):
     user_password = os.getenv('user_password')
     callback_url = os.getenv('callback_url')
     auth_headers = {
-        "client_id": client_id,
-        "response_type": "code",
-        "redirect_uri": callback_url,
-        "scope": config.config.permission_list
+        'client_id': client_id,
+        'response_type': 'code',
+        'redirect_uri': callback_url,
+        'scope': config.config.permission_list
     }
-    browser.open("/authorize?" + urlencode(auth_headers))
+    browser.open('/authorize?' + urlencode(auth_headers))
 
     browser.element('#login-username').type(user_mail)
     browser.element('#login-password').type(user_password)
     browser.element('#login-button').click()
     time.sleep(5)
-    if browser.element('[data-testid="auth-accept"]').matching(be.visible):
-        browser.element('[data-testid="auth-accept"]').perform(command.js.scroll_into_view).click()
+    if browser.element("[data-testid='auth-accept']").matching(be.visible):
+        browser.element("[data-testid='auth-accept']").perform(command.js.scroll_into_view).click()
     browser.switch_to_next_tab()
     time.sleep(5)
     current_url = browser.driver.current_url
     part = current_url.split('=')[1]
 
-    encoded_credentials = base64.b64encode(client_id.encode() + b':' + client_secret.encode()).decode("utf-8")
+    encoded_credentials = base64.b64encode(client_id.encode() + b':' + client_secret.encode()).decode('utf-8')
 
     token_headers = {
-        "Authorization": "Basic " + encoded_credentials,
-        "Content-Type": "application/x-www-form-urlencoded"
+        'Authorization': 'Basic ' + encoded_credentials,
+        'Content-Type': 'application/x-www-form-urlencoded'
     }
 
     token_data = {
-        "grant_type": "authorization_code",
-        "code": part,
-        "redirect_uri": "http://localhost:7777/callback"
+        'grant_type': 'authorization_code',
+        'code': part,
+        'redirect_uri': 'http://localhost:7777/callback'
     }
 
-    r = requests.post("https://accounts.spotify.com/api/token", data=token_data, headers=token_headers)
-    token = r.json()["access_token"]
+    r = requests.post('https://accounts.spotify.com/api/token', data=token_data, headers=token_headers)
+    token = r.json()['access_token']
 
     yield {
-            "Authorization": "Bearer " + token,
+            'Authorization': 'Bearer ' + token,
         }

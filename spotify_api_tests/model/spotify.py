@@ -75,7 +75,7 @@ class SpotifyWithSession:
             json={
                 'tracks': [
                     {
-                        "uri": song_id
+                        'uri': song_id
                     }
                 ]
             }

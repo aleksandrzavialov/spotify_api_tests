@@ -16,7 +16,7 @@ PLAYLIST_ENDPOINT = f'/v1/users/{spotify_user.id}/playlists'
 TOP_ARTISTS_ENDPOINT = '/v1/me/top/artists'
 
 
-@allure.tag("API")
+@allure.tag('API')
 @allure.label('owner', 'azavialov')
 @allure.feature('API')
 @allure.story('User Info')
@@ -34,7 +34,7 @@ def test_user_info_received(obtain_user_token):
         assert user_info_response.json()['id'] == spotify_user.id
 
 
-@allure.tag("API")
+@allure.tag('API')
 @allure.label('owner', 'azavialov')
 @allure.feature('API')
 @allure.story('Following artists')
@@ -45,15 +45,15 @@ def test_user_follows_artists(obtain_user_token):
 
     with allure.step('Follow Lou Reed'):
         user_params = {
-            "type": "artist",
-            "ids": ArtistList.Lou_Reed.value[1]
+            'type': 'artist',
+            'ids': ArtistList.Lou_Reed.value[1]
         }
         follow_artist_response = spotify_session.follow_artist(FOLLOW_ARTIST_ENDPOINT, headers=obtain_user_token, params=user_params)
 
         assert follow_artist_response.status_code == 204
     with allure.step('Check that a user follows Lou Reed'):
         user_params = {
-            "type": "artist",
+            'type': 'artist',
         }
         followed_artists_response = spotify_session.get_followed_artists(FOLLOW_ARTIST_ENDPOINT, headers=obtain_user_token, params=user_params)
 
@@ -62,15 +62,15 @@ def test_user_follows_artists(obtain_user_token):
         assert followed_artists_response.json()['artists']['items'][0]['name'] == ArtistList.Lou_Reed.value[0]
     with allure.step('Unfollow Lou Reed'):
         user_params = {
-            "type": "artist",
-            "ids": ArtistList.Lou_Reed.value[1]
+            'type': 'artist',
+            'ids': ArtistList.Lou_Reed.value[1]
         }
         follow_artist_response = spotify_session.unfollow_artist(FOLLOW_ARTIST_ENDPOINT, headers=obtain_user_token, params=user_params)
 
         assert follow_artist_response.status_code == 204
     with allure.step('Check that a user no longer follows Lou Reed'):
         user_params = {
-            "type": "artist",
+            'type': 'artist',
         }
         followed_artists_response = spotify_session.get_followed_artists(FOLLOW_ARTIST_ENDPOINT, headers=obtain_user_token, params=user_params)
 
@@ -79,7 +79,7 @@ def test_user_follows_artists(obtain_user_token):
         assert len(followed_artists_response.json()['artists']['items']) == 0
 
 
-@allure.tag("API")
+@allure.tag('API')
 @allure.label('owner', 'azavialov')
 @allure.feature('API')
 @allure.story('Adding tracks')
@@ -90,7 +90,7 @@ def test_user_adds_tracks_to_favorites(obtain_user_token):
 
     with allure.step('Add Master of Puppets'):
         user_params = {
-            "ids": TrackList.Master_of_Puppets.value[1]
+            'ids': TrackList.Master_of_Puppets.value[1]
         }
         add_track_response = spotify_session.add_track(TRACK_ENDPOINT, headers=obtain_user_token, params=user_params)
         assert add_track_response.status_code == 200
@@ -103,7 +103,7 @@ def test_user_adds_tracks_to_favorites(obtain_user_token):
         assert favorite_response_add.json()['items'][0]['track']['name'] == TrackList.Master_of_Puppets.value[0]
     with allure.step('Remove favorite track'):
         user_params = {
-            "ids": TrackList.Master_of_Puppets.value[1]
+            'ids': TrackList.Master_of_Puppets.value[1]
         }
         remove_track_response = spotify_session.remove_track(TRACK_ENDPOINT, headers=obtain_user_token, params=user_params)
 
@@ -116,7 +116,7 @@ def test_user_adds_tracks_to_favorites(obtain_user_token):
         assert len(favorite_response_remove.json()['items']) == 0
 
 
-@allure.tag("API")
+@allure.tag('API')
 @allure.label('owner', 'azavialov')
 @allure.feature('API')
 @allure.story('Adding tracks to a playlist and deleting from playlist')
@@ -125,13 +125,13 @@ def test_user_adds_tracks_to_favorites(obtain_user_token):
 def test_user_adds_tracks(obtain_user_token):
     spotify_session = SpotifyWithSession()
     now = datetime.now()
-    dt_string = now.strftime("%d/%m/%Y%H:%M:%S")
+    dt_string = now.strftime('%d/%m/%Y%H:%M:%S')
     playlist = SpotifyPlaylist(f'test_playlist_name-{dt_string}', f'test_playlist_description-{dt_string}')
     song_id = f'spotify:track:{TrackList.Master_of_Puppets.value[1]}'
 
     with allure.step('Add new playlist'):
         user_params = {
-            "user_id": spotify_user.id
+            'user_id': spotify_user.id
         }
         add_playlist_response = spotify_session.add_playlist(playlist, PLAYLIST_ENDPOINT, headers=obtain_user_token, params=user_params)
 
@@ -146,8 +146,8 @@ def test_user_adds_tracks(obtain_user_token):
 
     with allure.step('Check that a user can add tracks to a playlist'):
         user_params = {
-            "playlist_id": playlist_id,
-            "uris": f'spotify:track:{TrackList.Master_of_Puppets.value[1]}'
+            'playlist_id': playlist_id,
+            'uris': f'spotify:track:{TrackList.Master_of_Puppets.value[1]}'
         }
         add_to_playlist_response = spotify_session.add_track_to_playlist(TRACK_PLAYLIST_ENDPOINT, headers=obtain_user_token, params=user_params)
 
@@ -155,7 +155,7 @@ def test_user_adds_tracks(obtain_user_token):
         assert add_to_playlist_response.status_code == 201
     with allure.step('Check that a track appears in the playlist'):
         user_params = {
-            "playlist_id": playlist_id,
+            'playlist_id': playlist_id,
         }
         get_tracks_in_playlist_response = spotify_session.get_playlist_items(TRACK_PLAYLIST_ENDPOINT, headers=obtain_user_token, params=user_params)
 
@@ -166,7 +166,7 @@ def test_user_adds_tracks(obtain_user_token):
         assert get_tracks_in_playlist_response.json()['items'][0]['track']['name'] == TrackList.Master_of_Puppets.value[0]
     with allure.step('Check that a user can delete tracks from a playlist'):
         user_params = {
-            "playlist_id": playlist_id,
+            'playlist_id': playlist_id,
         }
 
         remove_from_playlist_response = spotify_session.remove_track_from_playlist(song_id, TRACK_PLAYLIST_ENDPOINT, headers=obtain_user_token, params=user_params)
@@ -181,7 +181,7 @@ def test_user_adds_tracks(obtain_user_token):
         assert get_tracks_in_playlist_response.json()['total'] == 0
 
 
-@allure.tag("API")
+@allure.tag('API')
 @allure.label('owner', 'azavialov')
 @allure.feature('API')
 @allure.story('User can get list of its top artists')
