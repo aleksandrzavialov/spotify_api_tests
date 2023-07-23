@@ -1,0 +1,157 @@
+{
+    "type": "object",
+    "required": [
+        "collaborative",
+        "description",
+        "external_urls",
+        "followers",
+        "href",
+        "id",
+        "images",
+        "name",
+        "owner",
+        "primary_color",
+        "public",
+        "snapshot_id",
+        "tracks",
+        "type",
+        "uri"
+    ],
+    "properties": {
+        "collaborative": {
+            "type": "boolean"
+        },
+        "description": {
+            "type": "string"
+        },
+        "external_urls": {
+            "type": "object",
+            "required": [
+                "spotify"
+            ],
+            "properties": {
+                "spotify": {
+                    "type": "string"
+                }
+            }
+        },
+        "followers": {
+            "type": "object",
+            "required": [
+                "href",
+                "total"
+            ],
+            "properties": {
+                "href": {
+                    "type": "null"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "href": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "images": {
+            "type": "array",
+            "items": {}
+        },
+        "name": {
+            "type": "string"
+        },
+        "owner": {
+            "type": "object",
+            "required": [
+                "display_name",
+                "external_urls",
+                "href",
+                "id",
+                "type",
+                "uri"
+            ],
+            "properties": {
+                "display_name": {
+                    "type": "string"
+                },
+                "external_urls": {
+                    "type": "object",
+                    "required": [
+                        "spotify"
+                    ],
+                    "properties": {
+                        "spotify": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "href": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                }
+            }
+        },
+        "primary_color": {
+            "type": "null"
+        },
+        "public": {
+            "type": "boolean"
+        },
+        "snapshot_id": {
+            "type": "string"
+        },
+        "tracks": {
+            "type": "object",
+            "required": [
+                "href",
+                "items",
+                "limit",
+                "next",
+                "offset",
+                "previous",
+                "total"
+            ],
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {}
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "next": {
+                    "type": "null"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "previous": {
+                    "type": "null"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "type": {
+            "type": "string"
+        },
+        "uri": {
+            "type": "string"
+        }
+    }
+}

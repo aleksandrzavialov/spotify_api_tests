@@ -1,12 +1,10 @@
-import logging
 import os
 import time
-
 import requests
 from urllib.parse import urlencode
 import base64
 from selene.support.shared import browser
-from selene import be
+from selene import be, command
 import config
 from selenium import webdriver
 import pytest
@@ -16,6 +14,7 @@ import pytest
 def browser_management():
     browser.config.base_url = config.config.base_url
     browser.config.driver_name = config.config.driver_name
+    browser.config.version = config.config.browser_version
     browser.config.hold_driver_at_exit = config.config.hold_driver_at_exit
     browser.config.window_width = config.config.window_width
     browser.config.window_height = config.config.window_height
@@ -25,6 +24,20 @@ def browser_management():
         webdriver.ChromeOptions() if config.config.driver_name == 'chrome' else webdriver.FirefoxOptions()
         )
     browser.config.driver_options = driver_options
+
+    login = os.getenv('SELENOID_LOGIN')
+    password = os.getenv('SELENOID_PASSWORD')
+
+    selenoid_capabilities = {
+        "browserName": browser.config.driver_name,
+        "browserVersion": browser.config.version,
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": True
+        }
+    }
+    driver_options.capabilities.update(selenoid_capabilities)
+    browser.config.driver = webdriver.Remote(command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub", options=driver_options)
 
     yield
 
@@ -51,7 +64,7 @@ def obtain_user_token(browser_management):
     browser.element('#login-button').click()
     time.sleep(5)
     if browser.element('[data-testid="auth-accept"]').matching(be.visible):
-        browser.element('[data-testid="auth-accept"]').click()
+        browser.element('[data-testid="auth-accept"]').perform(command.js.scroll_into_view).click()
     browser.switch_to_next_tab()
     time.sleep(5)
     current_url = browser.driver.current_url
@@ -71,7 +84,8 @@ def obtain_user_token(browser_management):
     }
 
     r = requests.post("https://accounts.spotify.com/api/token", data=token_data, headers=token_headers)
-    #logging.info(r.json())
     token = r.json()["access_token"]
 
-    yield token
+    yield {
+            "Authorization": "Bearer " + token,
+        }

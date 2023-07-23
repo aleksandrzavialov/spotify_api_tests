@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "required": [
+        "href",
+        "items",
+        "limit",
+        "next",
+        "offset",
+        "previous",
+        "total"
+    ],
+    "properties": {
+        "href": {
+            "type": "string"
+        },
+        "items": {
+            "type": "array",
+            "items": {}
+        },
+        "limit": {
+            "type": "integer"
+        },
+        "next": {
+            "type": ["string", "null"]
+        },
+        "offset": {
+            "type": "integer"
+        },
+        "previous": {
+            "type": ["string", "null"]
+        },
+        "total": {
+            "type": "integer"
+        }
+    }
+}
