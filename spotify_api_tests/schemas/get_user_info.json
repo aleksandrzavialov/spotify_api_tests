@@ -1,0 +1,88 @@
+{
+    "type": "object",
+    "required": [
+        "display_name",
+        "external_urls",
+        "href",
+        "id",
+        "images",
+        "type",
+        "uri",
+        "followers",
+        "country",
+        "product",
+        "explicit_content",
+        "email"
+    ],
+    "properties": {
+        "display_name": {
+            "type": "string"
+        },
+        "external_urls": {
+            "type": "object",
+            "required": [
+                "spotify"
+            ],
+            "properties": {
+                "spotify": {
+                    "type": "string"
+                }
+            }
+        },
+        "href": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "images": {
+            "type": "array",
+            "items": {}
+        },
+        "type": {
+            "type": "string"
+        },
+        "uri": {
+            "type": "string"
+        },
+        "followers": {
+            "type": "object",
+            "required": [
+                "href",
+                "total"
+            ],
+            "properties": {
+                "href": {
+                    "type": ["string", "null"]
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "country": {
+            "type": "string"
+        },
+        "product": {
+            "type": "string"
+        },
+        "explicit_content": {
+            "type": "object",
+            "required": [
+                "filter_enabled",
+                "filter_locked"
+            ],
+            "properties": {
+                "filter_enabled": {
+                    "type": "boolean"
+                },
+                "filter_locked": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "email": {
+            "type": "string"
+        }
+    }
+}

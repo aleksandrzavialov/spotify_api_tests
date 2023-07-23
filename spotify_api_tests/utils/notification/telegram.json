@@ -1,0 +1,17 @@
+{
+  "base": {
+    "project": "qa-guru-5-API",
+    "environment": "test env",
+    "comment": "tests for Spotify API",
+    "reportLink": "",
+    "language": "en",
+    "messenger": "telegram",
+    "allureFolder": "allure-report/",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "6334468655:AAHxZUJFttp0C_o8XBmtEQtb6pXCHbGeGtE",
+    "chat": "-1001951053592",
+    "replyTo": ""
+  }
+}

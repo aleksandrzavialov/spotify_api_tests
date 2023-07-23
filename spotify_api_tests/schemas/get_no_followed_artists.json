@@ -1,0 +1,48 @@
+{
+    "type": "object",
+    "required": [
+        "artists"
+    ],
+    "properties": {
+        "artists": {
+            "type": "object",
+            "required": [
+                "items",
+                "next",
+                "total",
+                "cursors",
+                "limit",
+                "href"
+            ],
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {}
+                },
+                "next": {
+                    "type": ["string", "null"]
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "cursors": {
+                    "type": "object",
+                    "required": [
+                        "after"
+                    ],
+                    "properties": {
+                        "after": {
+                            "type": ["string", "null"]
+                        }
+                    }
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "href": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

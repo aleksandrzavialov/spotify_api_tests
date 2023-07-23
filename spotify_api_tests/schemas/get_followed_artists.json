@@ -1,0 +1,136 @@
+{
+    "type": "object",
+    "required": [
+        "artists"
+    ],
+    "properties": {
+        "artists": {
+            "type": "object",
+            "required": [
+                "items",
+                "next",
+                "total",
+                "cursors",
+                "limit",
+                "href"
+            ],
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "external_urls",
+                            "followers",
+                            "genres",
+                            "href",
+                            "id",
+                            "images",
+                            "name",
+                            "popularity",
+                            "type",
+                            "uri"
+                        ],
+                        "properties": {
+                            "external_urls": {
+                                "type": "object",
+                                "required": [
+                                    "spotify"
+                                ],
+                                "properties": {
+                                    "spotify": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "followers": {
+                                "type": "object",
+                                "required": [
+                                    "href",
+                                    "total"
+                                ],
+                                "properties": {
+                                    "href": {
+                                        "type": ["string", "null"]
+                                    },
+                                    "total": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "genres": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "href": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "images": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "height",
+                                        "url",
+                                        "width"
+                                    ],
+                                    "properties": {
+                                        "height": {
+                                            "type": "integer"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "width": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "popularity": {
+                                "type": "integer"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "uri": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "next": {
+                    "type": ["string", "null"]
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "cursors": {
+                    "type": "object",
+                    "required": [
+                        "after"
+                    ],
+                    "properties": {
+                        "after": {
+                            "type": ["string", "null"]
+                        }
+                    }
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "href": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
