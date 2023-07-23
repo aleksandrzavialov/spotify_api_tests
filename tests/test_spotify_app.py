@@ -121,12 +121,12 @@ def test_user_adds_tracks_to_favorites(obtain_user_token):
 @allure.feature('API')
 @allure.story('Adding tracks to a playlist and deleting from playlist')
 @allure.severity(Severity.BLOCKER)
-@allure.title('User can add tracks from playlist')
+@allure.title('User can add tracks to playlist')
 def test_user_adds_tracks(obtain_user_token):
     spotify_session = SpotifyWithSession()
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y%H:%M:%S")
-    playlist = SpotifyPlaylist(f'test_playlist_name-{dt_string}', 'test_playlist_description')
+    playlist = SpotifyPlaylist(f'test_playlist_name-{dt_string}', f'test_playlist_description-{dt_string}')
     song_id = f'spotify:track:{TrackList.Master_of_Puppets.value[1]}'
 
     with allure.step('Add new playlist'):
