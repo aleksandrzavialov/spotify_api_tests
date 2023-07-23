@@ -22,7 +22,7 @@
             "type": "boolean"
         },
         "description": {
-            "type": "string"
+            "type": ["string", "null"]
         },
         "external_urls": {
             "type": "object",
