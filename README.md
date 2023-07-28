@@ -39,7 +39,7 @@
 
 - Переименовать файл .env.example в .env, внести свои данные
 
-- Настроить запуск тестов из [Jenkins](https://jenkins.autotests.cloud/job/azavialov-qa-guru-python-5-API/) и нажать "Собрать сейчас"
+- Настроить запуск тестов из [Jenkins](https://jenkins.autotests.cloud/job/azavialov-qa-guru-python-5-API/) и нажать "Собрать сейчас". Пример завершенной сборки по [ссылке](https://jenkins.autotests.cloud/job/azavialov-qa-guru-python-5-API/9/).
 <img src="images/screens/jenkins_build.png" alt="Jenkins"/>
 
 - Информация о прохождении тестов доступна в Allure - отчете сборки, в аттачментах есть cURL, JSON ответа
@@ -69,4 +69,4 @@
 
 ## Настроена отправка отчета в Telegram
 
-<img src="images/screens/telegram.png" alt="Telegram"/>
+<img src="images/screens/telegram2.png" alt="Telegram"/>
